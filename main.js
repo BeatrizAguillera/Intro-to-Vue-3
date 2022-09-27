@@ -6,7 +6,12 @@ const app = Vue.createApp({
             link: 'https://www.vuemastery.com',
             onSale: true,
             inventory: 15,
-            details: ['50% cotton', '30% wool', '20% polyester']
+            details: ['50% cotton', '30% wool', '20% polyester'],
+            sizes: ['P', 'M', 'G'],
+            variants: [
+                { id: 2234, color: 'green' },
+                { id: 2235, color: 'blue' },
+            ],
         }
     }
 })
