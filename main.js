@@ -6,6 +6,7 @@ const app = Vue.createApp({
             link: 'https://www.vuemastery.com',
             onSale: true,
             inventory: 15,
+            details: ['50% cotton', '30% wool', '20% polyester']
         }
     }
 })
