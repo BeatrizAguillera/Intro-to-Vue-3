@@ -15,10 +15,13 @@
       <div class="product-display">
         <div class="product-container">
           <div class="product-image">
-            <img :src="image" alt="">
+            <img :src="image" alt="socks image">
           </div>
           <div class="product-info">
             <h1>{{ product }}</h1>
+            <p v-if="inventory > 10">OnSale</p>
+            <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
+            <p v-else>Out of sale</p>
             <p>{{'Beautiful, soft and warm ' + product + ' for your delight!'}}</p>
             <p><a :href="link">Access Vuemastery here for more socks</a></p>
           </div>
