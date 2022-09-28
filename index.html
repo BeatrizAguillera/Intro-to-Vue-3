@@ -20,27 +20,25 @@
             <img
             :src="image"
             alt="socks image"
-            :class="{ 'out-of-stock-img': !onSale }">
+            :class="{ 'out-of-stock-img': !inStock }">
           </div>
           <div class="product-info">
-            <h1>{{ product }}</h1>
-            <p v-if="onSale && inventory > 10">OnSale</p>
-            <p v-else-if="onSale && inventory <= 10 && inventory > 0">Almost sold out!</p>
-            <p v-else>Out of sale</p>
+            <h1>{{ title }}</h1>
+            <p>{{ productDisponibility }}</p>
             <ul>
               <li v-for="detail in details">{{ detail }}</li>
             </ul>
             <div v-for="size in sizes">{{ size }}</div>
             <div
-            v-for="variant in variants"
+            v-for="(variant, index) in variants"
             :key="variant.id"
             class="color-circle"
             :style="{backgroundColor: variant.color}"
-            @mouseover="updateImage(variant.image)"></div>
+            @mouseover="updateVariant(index)"></div>
             <button
             class="button"
-            :class="{ disabledButton: !onSale }"
-            :disabled="!onSale"
+            :class="{ disabledButton: !inStock }"
+            :disabled="!inStock"
             @click="addToCart">Add to Cart</button>
             <button
             class="button"

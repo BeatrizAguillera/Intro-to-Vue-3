@@ -4,16 +4,15 @@ const app = Vue.createApp({
             cart: 0,
             product: 'Socks',
             brand: 'Vue Mastery',
-            image: './assets/images/socks_green.jpg',
+            selectedVariant: 0,
             link: 'https://www.vuemastery.com',
-            onSale: true,
-            inventory: 70,
             details: ['50% cotton', '30% wool', '20% polyester'],
             sizes: ['P', 'M', 'G'],
             variants: [
-                { id: 2234, color: 'green', image: './assets/images/socks_green.jpg' },
-                { id: 2235, color: 'darkblue', image: './assets/images/socks_blue.jpg' },
+                { id: 2234, color: 'green', image: './assets/images/socks_green.jpg', quantity: 0 },
+                { id: 2235, color: 'darkblue', image: './assets/images/socks_blue.jpg', quantity: 5},
             ],
+            inventory: 'this.variants[this.selectedVariant].quantity',
         }
     },
     methods: {
@@ -25,8 +24,32 @@ const app = Vue.createApp({
             this.cart--
             }
         },
-        updateImage(variantImage) {
-            this.image = variantImage
+        updateVariant(index) {
+            this.selectedVariant = index
         },
-    }
+    },
+    computed: {
+        title() {
+            return this.brand + ' ' + this.product
+        },
+        image() {
+            return this.variants[this.selectedVariant].image
+            },
+        inStock() {
+            return this.variants[this.selectedVariant].quantity
+        },
+        onSale() {
+            let inventory = this.variants[this.selectedVariant].quantity
+                if (inventory > 10) {
+                    return 'on sale!'
+                } else if (inventory > 0 && inventory < 10) {
+                    return 'almost sold out!'
+                } else {
+                    return 'out of sale.'
+                }
+            },
+        productDisponibility() {
+            return this.brand + ' ' + this.product + ' is ' + this.onSale
+        },
+    },
 })
