@@ -20,7 +20,6 @@ app.component('product-details', {
 
     data() {
         return {
-            teste: 0
         }
     },
 })

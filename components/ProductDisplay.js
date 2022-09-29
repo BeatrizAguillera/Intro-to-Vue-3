@@ -3,6 +3,10 @@ app.component('product-display', {
         premium: {
             type: Boolean,
             required: true,
+        },
+        cart: {
+            type: Array,
+            required: true,
         }
     },
     template:
@@ -18,6 +22,7 @@ app.component('product-display', {
         <div class="product-info">
             <h1>{{ title }}</h1>
             <p>{{ productDisponibility }}</p>
+            <p>{{'Beautiful, soft and warm ' + product + ' for your delight!'}}</p>
             <p>Shipping: {{ shipping }}</p>
             <div
             v-for="(variant, index) in variants"
@@ -29,10 +34,11 @@ app.component('product-display', {
             class="button"
             :class="{ disabledButton: !inStock }"
             :disabled="!inStock"
-            @click="addToCart">Add to Cart</button>
+            @click="callingAddToCart">Add to Cart</button>
             <button
             class="button"
-            @click="removeOfCart">Remove of Cart</button>
+            @click="callingRemoveOfCart"
+            :class="{ disabledButton: !this.cart.length }">Remove of Cart</button>
         </div>
         </div>
     </div>`,
@@ -49,13 +55,11 @@ app.component('product-display', {
             }
             },
         methods: {
-        addToCart() {
-            this.cart += 1
+        callingAddToCart() {
+                this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
         },
-        removeOfCart() {
-            if (this.cart > 0) {
-                this.cart--
-            }
+        callingRemoveOfCart() {
+            this.$emit('remove-of-cart', this.variants[this.selectedVariant].id)
         },
         updateVariant(index) {
             this.selectedVariant = index
